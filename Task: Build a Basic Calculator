@@ -1,0 +1,43 @@
+import decimal
+def Adding(num1,num2):
+    res = decimal.Decimal(str(num1))+decimal.Decimal(str(num2))
+    return res
+
+def Subtracting(num1,num2):
+    return num1-num2
+
+def Multiply(num1,num2):
+    return num1*num2
+
+def Division(num1,num2):
+    try:
+        if num2 == 0:
+            raise ZeroDivisionError ("It's impossible to divide to zero")
+    except ZeroDivisionError as e:
+        return e
+
+def Menu():
+    print("01. Add")
+    print("02. Subtract")
+    print("03. Multiply")
+    print("04. Division")
+    print("05. Exit")
+
+
+Menu()
+inpmenu = 0
+while inpmenu != '05':
+    inpmenu = input("Please Choose: ")
+    inp1 = float(input("Enter the first Number: "))
+    inp2 = float(input("Enter the second Number: "))
+
+    if inpmenu == '01':
+        print(Adding(inp1, inp2))
+    if inpmenu == '02':
+        print(Subtracting(inp1,inp2))
+    if inpmenu == '03':
+        print(Multiply(inp1,inp2))
+    if inpmenu == '04':
+        print(Division(inp1,inp2))
+
+
