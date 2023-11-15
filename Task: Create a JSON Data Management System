@@ -1,0 +1,59 @@
+import json
+di = {}
+def addition(unid,data):
+    with open("file.json", 'w') as f:
+        di[unid] = data
+        json.dump(di,f)
+        return ("Successful")
+
+def retrievel(unid):
+    with open("file.json",'r') as f:
+        if unid in di:
+            d = json.load(f)
+            return d
+    raise json.decoder.JSONDecodeError ("Invalid input")
+
+def updating(unid, new_data):
+    with open("file.json", 'w+') as f:
+        if unid in di:
+            di[unid] = new_data
+            json.dump(di,f)
+            return ("Successfully updated")
+    raise json.decoder.JSONDecodeError ("Invalid input")
+
+def deletion(unid):
+    with open("file.json", 'w+') as f:
+        if unid in di:
+            del di[unid]
+            return ("Successful")
+    raise json.decoder.JSONDecodeError ("Invalid input")
+
+def menu():
+    print("1. Add Data in Json")
+    print("2. Retrieve the Data")
+    print("3. Update the Data")
+    print("4. Delete the Data")
+
+
+menu()
+choose = 1
+while choose != 0:
+    choose = int(input("Enter your choice: "))
+    if choose == 1:
+        unid = max(di.values(), default=0)+2
+        print(f"Your Key is:{unid}")
+        data = input("Enter data you want to add: ")
+        print(addition(unid,data))
+
+    if choose == 2:
+        unid = int(input("Enter the Key: "))
+        print(retrievel(unid))
+
+    if choose == 3:
+        unid = int(input("Enter the Key you want to update: "))
+        new_data = input("Updated Version: ")
+        print(updating(unid, new_data))
+
+    if choose == 4:
+        unid = int(input("Enter the Key you want to delete: "))
+        print(deletion(unid))
