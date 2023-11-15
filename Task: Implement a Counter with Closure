@@ -1,0 +1,15 @@
+def outer(value = 0):
+    counter = value
+    def inc(count = 1):
+        nonlocal counter
+        counter += count
+    def dec(count = 1):
+        nonlocal counter
+        counter-=count
+    def final():
+        return counter
+    return {
+        "increment":inc,
+        "decrement":dec,
+        "final":final,
+    }
