@@ -1,0 +1,69 @@
+def Username(function):
+    def wrapper1(*args):
+        if len(args[0]) < 5 or len(args[0]) > 20:
+            raise ValueError ("Invalid Username")
+        if not args[0].isalpha():
+            raise ValueError("Invalid Username")
+        if args[0] == "admin" or args[0] == "root":
+            raise ValueError("Invalid Username")
+        return function(*args)
+    return wrapper1
+
+def Email(function2):
+    def wrapper2(*args, **kwargs):
+        if '@' in args[1] and '.' in args[1]:
+            name = args[1].split('@') #['hello','mail.ru']
+            ma = name[1].split('.')   #['mail', 'ru']
+            if len(name[0]) != 0 and name[0][0].isalpha():
+                if len(name[1]) > 4 and ma[1].isalpha():
+                    if len(ma[1]) >= 2:
+                         return function2(*args, **kwargs)
+        raise ValueError ("Invalid E-Mail")
+    return wrapper2
+
+def Phone(function3):
+    def wrapper3(*args, **kwargs):
+        if args[2][0] == '0' and len(args[2]) == 9:
+            if args[2].isdigit():
+                return function3(*args,**kwargs)
+        if args[2][0] == '+' and len(args[2]) == 12:
+            if args[2][1:].isdigit():
+                return function3(*args, **kwargs)
+        raise ValueError ("Invalid Phone Number")
+    return wrapper3
+
+
+def Password(function4):
+    def wrapper4(*args, **kwargs):
+        symbs = '!', '@', '#', '$', '%', '^', '&', '*'
+        if len(args[3]) >= 8:
+            if any(i in symbs for i in args[3]):
+                if any(i.isupper() for i in args[3]):
+                    if any(i.isdigit() for i in args[3]):
+                        if any(i.islower() for i in args[3]):
+                            return function4(*args, **kwargs)
+        raise ValueError ("Invalid Password")
+    return wrapper4
+def Repeat_Password(function5):
+    def wrapper5(*args):
+        if args[3] == args[4]:
+            return function5(*args)
+        raise ValueError("Invalid Password")
+    return wrapper5
+
+
+@Password
+@Repeat_Password
+@Phone
+@Email
+@Username
+def function(usernamec: str, email: str, phone: str, passw: str, re_pass: str):
+    return (usernamec, email, phone, passw, re_pass)
+
+userin = input("Enter Username: ")
+emailin = input("Enter the E-Mail: ")
+phonein = input("Enter the Phone Number: ")
+passwin = input("Enter the Password: ")
+reppasswing = input("Enter the Reapeat Password: ")
+res = function(userin, emailin, phonein, passwin,reppasswing)
+print(res)
