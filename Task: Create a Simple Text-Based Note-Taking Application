@@ -1,0 +1,74 @@
+notes = {}
+def addnot():
+    unique_id = max(notes.keys(), default=0)+2
+    text = input("Enter the Text for your Note: ")
+    notes[unique_id] = text
+    print(f'You have succesfully added a Note with ID {unique_id}')
+
+
+def listing():
+    if not notes:
+        print("There is no available notes")
+    else:
+        for k,v in notes.items():
+            preview = notes[k][:30]
+        print(f"{k}, Your Note's Preview: {preview}...")
+
+
+def retrievel(unique_id):
+    if not notes:
+        print("Sorry, try again, because no available notes")
+    else:
+        if unique_id in notes:
+            print(f'Your Unique Id is {unique_id}, and Your Note is --> {notes[unique_id]}')
+
+
+def deletion(unique_id):
+    if unique_id in notes:
+        del notes[unique_id]
+        print("Successful deleted")
+    else:
+        print("No such ID found")
+
+
+
+def searching():
+    keyword = input("Enter the keyword: ")
+    for k,v in notes.items():
+        if keyword in notes[k]:
+            print(f'With this Keyword: {keyword}, We have found following Notes: {notes[k]}')
+    print("No such Keyword found")
+
+
+def menu():
+    print("Your Selection")
+    print("1. Adding a Note")
+    print("2. Listing a Note")
+    print("3. Retrieve a Note")
+    print("4. Deleting a Note")
+    print("5. Searching a Note")
+    print("6. For Exit")
+
+
+while True:
+    menu()
+    selection = int(input("Please Choose: "))
+    if selection == 1:
+        addnot()
+    if selection == 2:
+        listing()
+    if selection == 3:
+        unique_id = int(input("Enter the Unique ID: "))
+        retrievel(unique_id)
+    if selection == 4:
+        unique_id = int(input("Enter the Unique ID: "))
+        deletion(unique_id)
+    if selection == 5:
+        searching()
+    if selection == 6:
+        break
+
+
+
+
+
