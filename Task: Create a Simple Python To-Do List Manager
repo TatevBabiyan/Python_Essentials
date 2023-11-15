@@ -1,0 +1,79 @@
+def addition(UniqueTaskNumber, DescriptionofTask, prior, completed):
+    global di
+    if UniqueTaskNumber in di:
+        return
+    if UniqueTaskNumber not in di:
+        di[UniqueTaskNumber] = (DescriptionofTask,prior,completed)
+        print(di)
+        return ("Your Task is successfully created")
+
+def removing(UniqueTaskNumber):
+    global di
+    if UniqueTaskNumber in di:
+        di.pop(UniqueTaskNumber)
+        print(di)
+        return("Succesfull removed")
+
+def priority(UniqueTaskNumber, high = [], low = []):
+    if di[UniqueTaskNumber][1] == 'High':
+        high.append((f'Task ID is {UniqueTaskNumber}, Task Description is {list(di[UniqueTaskNumber][2])}'))
+        return high
+    if di[UniqueTaskNumber][1] == 'Low':
+        low.append((f'Task ID is {UniqueTaskNumber}, Task Description is {list(di[UniqueTaskNumber][2])}'))
+        return low
+
+def usage(UniqueTaskNumber, completed = [], notcopleted = []):
+    if di[UniqueTaskNumber][2] == '1':
+        completed.append((f'Task ID is {UniqueTaskNumber}, Task Description is {list(di[UniqueTaskNumber][4])}'))
+        return completed
+    if di[UniqueTaskNumber] == '2':
+        notcopleted.append((f'Task ID is {UniqueTaskNumber}, Task Description is {list(di[UniqueTaskNumber][4])}'))
+        return notcopleted
+
+
+def menu():
+    print("Your ToDo's")
+    print("1. Adding a new Task")
+    print("2. Removing the existing Task")
+    print("3. Priority")
+    print("4. Complete")
+
+di = {}
+while True:
+    menu()
+    task_id = int(input("Enter from List(for exit click 0): "))
+    if task_id == 1:
+        print("Do You have an ID ? (If yes, press '10' else '11': ")
+        task_id = int(input("10/11: "))
+        if task_id == 10:
+            UniqueTaskNumber = int(input("Enter your ID: "))
+            print("1. Change Priority")
+            print("2. Mark Complete/Incomplete")
+            print("3. Change Description")
+            task_id = int(input("1/2/3: "))
+            if task_id == 1:
+                prior = input("Enter your Task's priority(High/Low): ")
+                print("Successful")
+            if task_id == 2:
+                completed = input("Enter 1 if your Task is completed/if not 0: ")
+                print("Successful")
+            if task_id == 3:
+                DescriptionofTask = input("Enter the description: ")
+                print("Successful")
+            continue
+        if task_id == 11:
+            print("If You are new here, Welcome!")
+            UniqueTaskNumber = max(di.keys(), default=0) + 2
+            print(f"Your Unique Id is {UniqueTaskNumber}")
+            DescriptionofTask = input("Enter the description: ")
+            prior = input("Enter your Task's priority(High/Low): ")
+            completed = input("Enter 1 if your Task is completed/if not 0: ")
+            print(addition(UniqueTaskNumber, DescriptionofTask, prior, completed))
+
+    if task_id == 2:
+        UniqueTaskNumber = int(input("Enter the unique number of your task: "))
+        print(removing(UniqueTaskNumber))
+
+    if task_id == 3:
+        print(priority(UniqueTaskNumber))
+
